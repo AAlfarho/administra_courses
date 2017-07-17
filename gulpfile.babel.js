@@ -1,13 +1,20 @@
 'use strict';
 
-var gulp = require('gulp');
-var connect = require('gulp-connect');
-var open = require('gulp-open');
-var browserify = require('browserify'); // Bundle JS
-var reactify = require('reactify'); //transfor jsx to JS
-var source = require('vinyl-source-stream'); // Use conventional text streams with gulp
-var concat = require('gulp-concat'); // concatenates files
-var eslint = require('gulp-eslint'); //Lint JS and JSX files
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import connect from'gulp-connect';
+import open from'gulp-open';
+import browserify from'browserify'; // Bundle JS
+import reactify from'reactify'; //transfor jsx to JS
+import babelify from'babelify';
+import buffer from'vinyl-buffer';
+import uglify from'gulp-uglify';
+import sourcemaps from'gulp-sourcemaps';
+import livereload from'gulp-livereload';
+import source from'vinyl-source-stream'; // Use conventional text streams with gulp
+import concat from'gulp-concat'; // concatenates files
+import eslint from'gulp-eslint'; //Lint JS and JSX files
+
 var config = {
     port: process.env.PORT || 3000, 
     devBaseUrl: process.env.IP || "0.0.0.0",
@@ -39,17 +46,31 @@ gulp.task('open', ['connect'], function() {
 gulp.task('html', function() {
     gulp.src(config.paths.html)
     .pipe(gulp.dest(config.paths.dist))
-    .pipe(connect.reload())
+    .pipe(livereload())
 });
+
+// gulp.task('js', function() {
+//     browserify(config.paths.mainJS)
+//     .transform(reactify)
+//     .bundle()
+//     .on('error', console.error.bind(console))
+//     .pipe(source('bundle.js'))
+//     .pipe(babel({presets: ['es2015', 'stage-0']}))
+//     .pipe(gulp.dest(config.paths.dist + '/scripts'))
+//     .pipe(connect.reload());
+// });
 
 gulp.task('js', function() {
     browserify(config.paths.mainJS)
-    .transform(reactify)
+    .transform('babelify', { presets: ['react','es2015', 'stage-0']})
     .bundle()
     .on('error', console.error.bind(console))
     .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(sourcemaps.write('.maps'))
     .pipe(gulp.dest(config.paths.dist + '/scripts'))
-    .pipe(connect.reload());
+    .pipe(livereload());
 });
 
 gulp.task('css', function() {

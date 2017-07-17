@@ -1,4 +1,9 @@
-$ = jQuery = require('jquery');
-var App = console.log('Hello World from Broweserify');
+'use strict';
+// $ = jQuery = require('jquery');
 
-module.exports = App;
+import React from 'react';
+import Home from './components/homePage';
+
+React.render(<Home />, 
+    document.getElementById('app')
+);
