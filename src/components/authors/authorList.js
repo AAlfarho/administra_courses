@@ -4,6 +4,9 @@ import React from 'react';
 
 export default class AuthorList extends React.Component {
     
+    static propTypes = {
+        authors: React.PropTypes.array.isRequired
+    }
     createAuthorRow(author) {
         return (
             <tr key={author.id}>

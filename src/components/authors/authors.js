@@ -9,7 +9,7 @@ export default class Authors extends React.Component {
         super(props);
         this.state = {authors: []};
     }
-
+    
     componentDidMount() {
         this.setState({
             authors: AuthorAPI.getAllAuthors()
