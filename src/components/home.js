@@ -8,7 +8,7 @@ export default class Home extends React.Component {
          return (
            <div className='jumbotron'>
                 <div className='container'>
-                    <h1>HOoooola</h1>
+                    <h1>Pluralsight</h1>
                 </div>
             </div>
              );

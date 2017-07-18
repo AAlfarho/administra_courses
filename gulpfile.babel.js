@@ -79,6 +79,11 @@ gulp.task('css', function() {
    .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
+gulp.task('images', function() {
+   gulp.src('./src/favicon.ico')
+   .pipe(gulp.dest(config.paths.dist));
+});
+
 gulp.task('watch', function() {
    gulp.watch(config.paths.html, ['html']);
    gulp.watch(config.paths.js, ['js', 'lint']);
@@ -92,4 +97,4 @@ gulp.task('lint', function() {
    .pipe(eslint.format());
 });
 
-gulp.task('default', ['html', 'js', 'css', 'lint', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);
