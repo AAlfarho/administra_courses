@@ -26,8 +26,30 @@ export default class AuthorMGMT extends React.Component {
         return this.setState({author: this.state.author});
     }
     
+    authorFormIsValid = () => {
+        let validForm = true;
+        this.state.errors = {};
+        
+        if(this.state.author.firstName.length < 3){
+            this.state.errors.firstName = 'First name should be at least 3 chars';
+            validForm = false;
+        }
+        
+        if(this.state.author.lastName.length < 3){
+            this.state.errors.lastName = 'Last name should be at least 3 chars';
+            validForm = false;
+        }
+        
+        this.setState({errors: this.state.errors});
+        
+        return validForm;
+    }
+    
     saveAuthor = (event) => {
         event.preventDefault();
+        if(!this.authorFormIsValid()){
+            return;
+        }
         console.log(this);
         AuthorAPI.saveAuthor(this.state.author);
         toastr.success('Author saved.');
@@ -41,6 +63,7 @@ export default class AuthorMGMT extends React.Component {
                     author={this.state.author}
                     onChange={this.setAuthorState}
                     onSave={this.saveAuthor}
+                    errors={this.state.errors}
                 />
             </div>
             );
