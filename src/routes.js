@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
+import {Route, DefaultRoute, NotFoundRoute, Redirect} from 'react-router';
 
 import App from './components/app';
 import Home from './components/home';
@@ -16,6 +16,9 @@ let routes = (
     <Route name="authors" handler={Authors} />
     <Route name="about" handler={About} />
     <NotFoundRoute handler={NotFound404} />
+    <Redirect from='about-us' to='about' />
+    <Redirect from='about/*' to='about' />
+    <Redirect from='autors' to='authors' />
   </Route>
 );
 
