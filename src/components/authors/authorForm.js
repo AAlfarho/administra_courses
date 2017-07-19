@@ -4,6 +4,12 @@ import React from 'react';
 import Input from '../commons/textInput';
 
 export default class AuthorForm extends React.Component {
+    static propTypes = {
+        author:	React.PropTypes.object.isRequired,
+        onSave:	React.PropTypes.func.isRequired,
+        onChange: React.PropTypes.func.isRequired,
+        errors: React.PropTypes.object
+    }
     render() {
         return (
             <div>
