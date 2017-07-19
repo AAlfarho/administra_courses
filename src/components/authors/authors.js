@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import {Link} from 'react-router';
 import AuthorAPI from '../../api/authorAPI';
 import AuthorList from './authorList';
 
@@ -20,6 +21,7 @@ export default class Authors extends React.Component {
         return (
             <div>
                 <h1>Authors</h1>
+                <Link to='author_mgmt'className="btn btn-primary">Add Author</Link>
                 <AuthorList authors={this.state.authors} />
             </div>
             );
