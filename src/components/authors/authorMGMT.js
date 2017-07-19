@@ -18,6 +18,12 @@ export default class AuthorMGMT extends React.Component {
         dirty: false
     }
     
+    static willTransitionFrom(transition, component) {
+        if(component.state.dirty && !confirm("Leaving without saving?")){
+            transition.abort();
+        }
+    }
+    
     setAuthorState = (event) => {
         this.setState({dirty: true});
         let field = event.target.name;
@@ -50,9 +56,10 @@ export default class AuthorMGMT extends React.Component {
         if(!this.authorFormIsValid()){
             return;
         }
-        console.log(this);
+
         AuthorAPI.saveAuthor(this.state.author);
         toastr.success('Author saved.');
+        this.setState({dirty: false});
         this.context.router.transitionTo('authors');
     }
     render() {
