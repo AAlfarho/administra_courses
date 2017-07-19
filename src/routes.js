@@ -16,6 +16,7 @@ let routes = (
     <Route name="home" handler={Home} />
     <Route name="authors" handler={Authors} />
     <Route name="author_mgmt" path='author' handler={AuthorMGMT} />
+    <Route name="author_edit" path='author/:id' handler={AuthorMGMT} />
     <Route name="about" handler={About} />
     <NotFoundRoute handler={NotFound404} />
     <Redirect from='about-us' to='about' />

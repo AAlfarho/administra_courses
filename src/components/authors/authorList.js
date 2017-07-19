@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import {Link} from 'react-router';
 
 export default class AuthorList extends React.Component {
     
@@ -10,7 +11,7 @@ export default class AuthorList extends React.Component {
     createAuthorRow(author) {
         return (
             <tr key={author.id}>
-                <td><a href={'/#authors/' + author.id}>{author.id}</a></td>
+                <td><Link to='author_edit' params={{id: author.id}}>{author.id}</Link></td>
                 <td>{author.firstName} {author.lastName}</td>
             </tr>
             );

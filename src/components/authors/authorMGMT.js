@@ -24,6 +24,14 @@ export default class AuthorMGMT extends React.Component {
         }
     }
     
+    componentWillMount = () => {
+        let authorId = this.props.params.id;
+        
+        if(authorId){
+            this.setState({author: AuthorAPI.getAuthorById(authorId)});
+        } 
+    }
+    
     setAuthorState = (event) => {
         this.setState({dirty: true});
         let field = event.target.name;
