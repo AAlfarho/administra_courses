@@ -4,6 +4,7 @@ import React from 'react';
 import AuthorForm from './authorForm';
 import AuthorAPI from '../../api/authorAPI';
 import {Router} from 'react-router';
+import toastr from 'toastr';
 
 export default class AuthorMGMT extends React.Component {
     //Could not add mixins, so fall fack to routing in context 
@@ -29,6 +30,7 @@ export default class AuthorMGMT extends React.Component {
         event.preventDefault();
         console.log(this);
         AuthorAPI.saveAuthor(this.state.author);
+        toastr.success('Author saved.');
         this.context.router.transitionTo('authors');
     }
     render() {
