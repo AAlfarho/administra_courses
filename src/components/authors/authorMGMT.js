@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
-import AuthorForm from './authorForm';
-import AuthorAPI from '../../api/authorAPI';
 import {Router} from 'react-router';
 import toastr from 'toastr';
+import AuthorForm from './authorForm';
+import AuthorStore from '../../stores/authorStore';
+import AuthorActions from '../../actions/authorActions';
 
 export default class AuthorMGMT extends React.Component {
     //Could not add mixins, so fall fack to routing in context 
@@ -28,7 +29,7 @@ export default class AuthorMGMT extends React.Component {
         let authorId = this.props.params.id;
         
         if(authorId){
-            this.setState({author: AuthorAPI.getAuthorById(authorId)});
+            this.setState({author: AuthorStore.getAuthorById(authorId)});
         } 
     }
     
@@ -64,8 +65,11 @@ export default class AuthorMGMT extends React.Component {
         if(!this.authorFormIsValid()){
             return;
         }
-
-        AuthorAPI.saveAuthor(this.state.author);
+        if(this.state.author.id){
+            AuthorActions.updatedAuthor(this.state.author);
+        } else {
+            AuthorActions.createAuthor(this.state.author);   
+        }
         toastr.success('Author saved.');
         this.setState({dirty: false});
         this.context.router.transitionTo('authors');
